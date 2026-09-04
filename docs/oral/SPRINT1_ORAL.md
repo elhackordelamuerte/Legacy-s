@@ -5,12 +5,14 @@
 
 > Ce script couvre la **phase de cadrage** du Sprint 1 — le travail réalisé *avant le code*. Il ne décrit aucune fonctionnalité implémentée : aucun endpoint, aucun flux événementiel n'a encore été codé à ce stade. Ce qui est présenté, ce sont des analyses, des décisions documentées et des gabarits prêts à être exécutés par l'équipe dans la phase suivante.
 > Les passages entre crochets `[...]` sont des indications de mise en scène (slide), pas du texte à dire.
+> Chaque section liste sous **📄 Supports** les documents à avoir ouverts (sur son propre écran ou en partage) pendant qu'on parle — c'est là que se trouve tout ce qu'on cite (constats, extraits, tableaux), pas besoin de l'apprendre par cœur.
 
 ---
 
 ## 0. Introduction — porté par le PO (~1 min)
 
 > [Slide : titre du projet + équipe]
+> 📄 **Supports** : aucun document technique à l'écran pour cette partie. Avoir en tête le sommaire des livrables au cas où le jury interromprait tôt avec une question (`docs/AUDIT_REPORT.md`, `docs/adr/`, `docs/AGILE_GOVERNANCE.md`, `.github/workflows/ci.yml`, `CONTRIBUTING.md`).
 
 « Bonjour, nous sommes l'équipe en charge de la reprise du projet legacy `docker/getting-started-app`. Avant de vous montrer quoi que ce soit, on veut être clairs sur un point : l'objectif de ce Sprint 1, et en particulier de ce qu'on vous présente aujourd'hui, n'était **pas** de développer. Pas de Kanban, pas de nouveau CRUD, et à ce stade, pas encore de code du tout sur les corrections qu'on a identifiées.
 
@@ -21,6 +23,11 @@ Notre mandat, c'est de reprendre un projet existant, imparfait, et de le **pilot
 ## 1. Binôme 1 — Cadrage Agile & Backlog initial (Cédric, Etienne) (~2 min)
 
 > [Slide : board GitHub Projects, colonnes MoSCoW]
+> 📄 **Supports** :
+> - `docs/AGILE_GOVERNANCE.md` §3 — backlog MoSCoW (Must/Should/Could/Won't Have) à montrer à l'écran quand on parle du découpage des exigences.
+> - `docs/AGILE_GOVERNANCE.md` §1.4 — checklist labels/colonnes/jalons/modèles d'issues, pour justifier la structure du board GitHub Projects réel.
+> - `docs/AGILE_GOVERNANCE.md` §1.3 (charte d'équipe) et §2 (Definition of Done) — pour le passage sur les dailies, le canal de communication et la DoD.
+> - Le board GitHub Projects réel, en partage d'écran si possible — plus parlant qu'une slide statique.
 
 « Notre rôle, c'était de transformer le cahier des charges en un backlog exploitable, et de poser le cadre de fonctionnement de l'équipe.
 
@@ -35,6 +42,10 @@ Enfin, on a rédigé la charte d'équipe : horaire du daily, canal de communicat
 ## 2. Binôme 2 — Audit de la dette technique & Architecture cible (Naem, Rayan) (~2,5 min)
 
 > [Slide : matrice de sévérité de l'audit]
+> 📄 **Supports** :
+> - `docs/AUDIT_REPORT.md` §2.6 (frontend React compilé via Babel Standalone) et §2.5 (tests Jest présents mais non exécutables) — pour les deux surprises citées.
+> - `docs/AUDIT_REPORT.md` §2.1 (bug `name: undefined`) et §3 (matrice de sévérité complète, à projeter) — pour les constats critiques.
+> - `docs/adr/ADR-001-strategie-langage-typage.md`, `ADR-002-architecture-applicative.md`, `ADR-003-persistance-donnees.md` — ouvrir en particulier le bandeau **« Note de révision »** en tête de chacun, c'est la preuve écrite du changement d'avis assumé dont on parle à l'oral.
 
 « Notre rôle, c'était d'analyser le dépôt fourni sans a priori, et de proposer des pistes d'architecture cible à partir de ce qu'on y a réellement trouvé.
 
@@ -51,6 +62,10 @@ Petit point important, assumé : nos premières pistes étaient plus radicales �
 ## 3. Binôme 3 — Outillage, Qualité & Stratégie CI/CD (Florian, Evan) (~2,5 min)
 
 > [Slide/démo : gabarit ci.yml]
+> 📄 **Supports** :
+> - `.github/workflows/ci.yml` — ouvrir le fichier réel (les 3 jobs `lint`/`test`/`docker-build` et le commentaire d'en-tête qui explique pourquoi il est rouge) plutôt qu'une capture, plus convaincant si le jury demande à voir.
+> - `docs/AGILE_GOVERNANCE.md` §2 (Quality Gate = points 4 et 6 de la DoD) et backlog `[S1-S3]`/`[S1-S4]` (branch protection, seuil de couverture).
+> - `docs/adr/ADR-004-mecanisme-event-driven.md` — pour justifier le choix EventEmitter in-process vs Redis/RabbitMQ.
 
 « Notre rôle, c'était de définir les garde-fous de qualité et de préparer les gabarits techniques, sans attendre que le code existe pour les écrire — c'est délibéré : on définit d'abord l'exigence, l'équipe la fait passer au vert ensuite.
 
@@ -67,9 +82,14 @@ Enfin, on a cadré le périmètre du flux événementiel minimal attendu dès ce
 ## 4. Conclusion — porté par le SM (~1,5 min)
 
 > [Slide : les 4 ADR, board GitHub Projects]
+> 📄 **Supports** :
+> - `docs/adr/` (les 4 fichiers) — pour le rappel des décisions comparées et justifiées.
+> - `docs/AGILE_GOVERNANCE.md` §2 (DoD complète, 8 points) — à garder affichée pendant la phrase sur « aucune exception, même en fin de sprint ».
+> - Le board GitHub Projects réel — pour clore sur une preuve visuelle plutôt qu'une affirmation.
 
 « Pour résumer : ce Sprint 1, dans sa phase de cadrage, ne livre aucune fonctionnalité et aucune ligne de correction encore mergée. Ce qu'il livre, c'est un audit vérifié sur le code réel, quatre décisions d'architecture comparées et justifiées — y compris un changement d'avis assumé et documenté plutôt que caché — un backlog MoSCoW avec un board GitHub Projects opérationnel, une charte d'équipe, et des gabarits de qualité et de CI prêts à être activés.
 
 Notre Definition of Done s'applique dès la première Pull Request de la phase suivante : revue obligatoire, tests, quality gate vert, build Docker qui passe. Aucune exception, même en fin de sprint.
 
 Ce qu'on retient de cette phase de cadrage : comprendre avant de corriger, comparer avant de décider, documenter chaque choix — y compris quand on change d'avis. C'est ce mindset-là qu'on va garder pour la suite du Sprint 1, quand on passera à l'implémentation des corrections qu'on vient de vous présenter. Merci. »
+
