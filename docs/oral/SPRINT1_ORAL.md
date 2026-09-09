@@ -1,95 +1,121 @@
-# Texte oral — Soutenance Sprint 1 (phase de cadrage)
+# Script — Soutenance Sprint 1
 
-**Durée cible** : ~9-10 minutes. Découpage par binôme, à ajuster selon le temps réellement imparti.
-**Équipe** : Binôme 1 — Cadrage Agile & Backlog (Cédric, Etienne) · Binôme 2 — Audit & Architecture cible (Naem, Rayan) · Binôme 3 — Outillage, Qualité & CI/CD (Florian, Evan) · PO et SM désignés parmi les 6.
+**Format imposé** : 20 minutes au total — **10 min présentation** + **5 min Q&A** + **5 min feedback du coach**. Ce script ne couvre que les 10 premières minutes ; le reste ne se scripte pas (voir §4 et §5 pour s'y préparer).
 
-> Ce script couvre la **phase de cadrage** du Sprint 1 — le travail réalisé *avant le code*. Il ne décrit aucune fonctionnalité implémentée : aucun endpoint, aucun flux événementiel n'a encore été codé à ce stade. Ce qui est présenté, ce sont des analyses, des décisions documentées et des gabarits prêts à être exécutés par l'équipe dans la phase suivante.
-> Les passages entre crochets `[...]` sont des indications de mise en scène (slide), pas du texte à dire.
-> Chaque section liste sous **📄 Supports** les documents à avoir ouverts (sur son propre écran ou en partage) pendant qu'on parle — c'est là que se trouve tout ce qu'on cite (constats, extraits, tableaux), pas besoin de l'apprendre par cœur.
+> Les passages entre crochets `[...]` sont des indications de mise en scène (slide/écran), pas du texte à dire.
+> **📄 Supports** liste sous chaque section les documents à avoir ouverts pendant qu'on parle.
 
 ---
 
-## 0. Introduction — porté par le PO (~1 min)
+## 0. Rôles pendant la soutenance (à assigner avant le jour J)
 
-> [Slide : titre du projet + équipe]
-> 📄 **Supports** : aucun document technique à l'écran pour cette partie. Avoir en tête le sommaire des livrables au cas où le jury interromprait tôt avec une question (`docs/AUDIT_REPORT.md`, `docs/adr/`, `docs/AGILE_GOVERNANCE.md`, `.github/workflows/ci.yml`, `CONTRIBUTING.md`).
+| Rôle | Responsabilité | Qui |
+|---|---|---|
+| **Presenter** | Mène le déroulé : introduit, fait les transitions entre sections, relance en cas de blanc, clôture et lance les questions | à désigner |
+| **Product Owner** | Présente la partie « produit » : contexte/objectif (§1) et roadmap/priorités (§4) | PO du Sprint 1 |
+| **Scrum Master** | Présente la partie organisationnelle : équipe, cérémonies, process (§2) | SM du Sprint 1 |
+| **Time keeper** | Surveille le chrono en silence pendant les 10 min, fait un signe discret à 5 min et à 8 min pour accélérer si besoin | à désigner |
+| **Scribe** | Ne parle pas pendant la présentation ; prend des notes écrites pendant le Q&A et le feedback du coach (§4/§5) | à désigner |
 
-« Bonjour, nous sommes l'équipe en charge de la reprise du projet legacy `docker/getting-started-app`. Avant de vous montrer quoi que ce soit, on veut être clairs sur un point : l'objectif de ce Sprint 1, et en particulier de ce qu'on vous présente aujourd'hui, n'était **pas** de développer. Pas de Kanban, pas de nouveau CRUD, et à ce stade, pas encore de code du tout sur les corrections qu'on a identifiées.
+6 personnes pour 5 rôles formels : la personne restante intervient sur §3 (Insights & décisions/ADR) — c'est la section la plus dense, elle peut être partagée entre 2 personnes (celles qui ont fait l'audit/les ADR) sans que ça casse le déroulé, tant que le Presenter garde la main sur les transitions.
 
-Notre mandat, c'est de reprendre un projet existant, imparfait, et de le **piloter** — comprendre ce qui ne va pas, décider comment le corriger, et le justifier, sans le réécrire et sans changer de langage ni de base de données. Ce qu'on va vous présenter, c'est la phase de cadrage : trois ateliers de deux personnes, chacun avec un livrable précis, qui posent les fondations avant qu'on écrive la moindre ligne de correction. »
+## Objectifs de cette soutenance (ce qui est évalué — à garder en tête en répondant)
+
+- Le but et les objectifs du projet sont-ils bien compris par l'équipe ?
+- La direction prise est-elle claire ?
+- Retour sur l'avancement réel du projet.
+- Clarifications à obtenir pour le Sprint 2.
+- Évaluation de ce qui a été accompli à ce stade.
 
 ---
 
-## 1. Binôme 1 — Cadrage Agile & Backlog initial (Cédric, Etienne) (~2 min)
+## 1. Trame minutée (10 min)
 
-> [Slide : board GitHub Projects, colonnes MoSCoW]
+| Temps | Section | Contenu officiel | Porté par |
+|---|---|---|---|
+| 0:00–0:30 | Ouverture | Présentation de l'équipe et de l'agenda | Presenter |
+| 0:30–1:30 | **1. Contexte du projet** | Objectif à atteindre sur ce projet legacy | PO |
+| 1:30–3:30 | **2. Organisation d'équipe** | Rôles, cérémonies, process, traces de réunions | SM |
+| 3:30–7:30 | **3. Insights & décisions (ADR)** | Ce qu'on a appris de l'audit, décisions prises et justifiées | Binôme Audit/Architecture (+ appui Outillage) |
+| 7:30–9:00 | **4. Roadmap** | Priorités, ce qui reste, ce qui vient au Sprint 2 | PO |
+| 9:00–9:30 | **5. Questions ?** | Transition vers le Q&A | Presenter |
+
+---
+
+## 2. Contenu détaillé
+
+### 1. Contexte du projet — PO (~1 min)
+
+> [Slide : titre + équipe]
+> 📄 **Supports** : aucun document technique à l'écran, garder `docs/AGILE_GOVERNANCE.md` sous la main en cas de question immédiate.
+
+« Bonjour, nous reprenons le projet legacy `docker/getting-started-app`. Notre mandat n'est pas de le réécrire ni de développer de nouvelles fonctionnalités ce sprint — pas de Kanban, pas de nouveau CRUD. Il s'agit de **piloter un existant imparfait** : comprendre ce qui ne va pas, décider comment le corriger, le justifier, sans changer de langage ni de base de données. Ce Sprint 1 pose les fondations — audit, architecture cible, gouvernance, CI, premier flux événementiel — avant que le Sprint 2 ne livre des fonctionnalités. »
+
+### 2. Organisation d'équipe — SM (~2 min)
+
+> [Slide : board GitHub Projects, table des rôles]
 > 📄 **Supports** :
-> - `docs/AGILE_GOVERNANCE.md` §3 — backlog MoSCoW (Must/Should/Could/Won't Have) à montrer à l'écran quand on parle du découpage des exigences.
-> - `docs/AGILE_GOVERNANCE.md` §1.4 — checklist labels/colonnes/jalons/modèles d'issues, pour justifier la structure du board GitHub Projects réel.
-> - `docs/AGILE_GOVERNANCE.md` §1.3 (charte d'équipe) et §2 (Definition of Done) — pour le passage sur les dailies, le canal de communication et la DoD.
-> - Le board GitHub Projects réel, en partage d'écran si possible — plus parlant qu'une slide statique.
+> - `docs/AGILE_GOVERNANCE.md` §1 (binômes, rôles PO/SM, rotation), §1.3 (charte d'équipe), §2 (Definition of Done)
+> - Le board GitHub Projects réel, en partage d'écran
 
-« Notre rôle, c'était de transformer le cahier des charges en un backlog exploitable, et de poser le cadre de fonctionnement de l'équipe.
+« On est 6, organisés en 3 binômes fixes pour le travail technique : Cadrage Agile & Backlog, Audit & Architecture cible, Outillage/Qualité/CI-CD. Le Product Owner est fixe sur les 3 sprints ; le Scrum Master tourne à chaque sprint parmi les 5 autres — j'occupe ce rôle pour le Sprint 1.
 
-On a d'abord décortiqué les exigences Must Have et Should Have du document, pour savoir précisément ce qui devait être livré ce sprint et ce qui pouvait attendre. Ça a donné notre backlog MoSCoW, découpé en Must Have, Should Have, Could Have, et surtout un Won't Have explicite — parce que dire clairement ce qu'on ne fait pas ce sprint, c'est aussi important que dire ce qu'on fait, pour éviter qu'on nous glisse du scope en cours de route.
+Nos cérémonies : daily stand-up, Sprint Planning, Sprint Review, rétrospective. Notre charte d'équipe pose une règle simple : toute décision prise à l'oral doit être réécrite dans une Issue ou une PR GitHub — si ce n'est pas écrit, ça n'a pas eu lieu. C'est ce qui nous donne une trace vérifiable de comment on a travaillé, pas seulement de ce qu'on a produit.
 
-Ensuite, on a initialisé le GitHub Project : les labels — priorité MoSCoW, type de tâche, domaine technique — les colonnes du board de Backlog jusqu'à Done, les jalons pour chaque sprint, et des modèles d'issues pour que chaque bug, chaque tâche technique soit tracé de la même façon par tout le monde.
+Notre Definition of Done est stricte et sans exception : revue de PR obligatoire, tests, quality gate vert, build Docker qui passe, documentation à jour. [Montrer le board GitHub Projects réel ici.] »
 
-Enfin, on a rédigé la charte d'équipe : horaire du daily, canal de communication unique pour éviter que les décisions se perdent entre trois outils différents, et surtout une règle simple — tout ce qui est décidé à l'oral doit être réécrit dans une Issue ou une PR. Si ce n'est pas écrit, ça n'a pas eu lieu. C'est aussi là qu'on a formalisé notre Definition of Done : une Pull Request n'est acceptée que si elle a une revue, des tests, un quality gate vert et un build Docker qui passe — sans exception. »
+### 3. Insights & décisions — Binôme Audit/Architecture (~4 min)
+
+> [Slide : matrice de sévérité + les 4 ADR]
+> 📄 **Supports** :
+> - `docs/AUDIT_REPORT.md` §2 (constats), §3 (matrice de sévérité)
+> - `docs/adr/ADR-001` à `ADR-004` — ouvrir le bandeau **« Note de révision »** en tête des ADR-001/002/003
+
+« On a audité le code existant ligne par ligne plutôt que de supposer. Deux surprises concrètes : le frontend n'est pas du JS natif comme on le pensait, c'est du React compilé **dans le navigateur** via Babel, sans build ; et des fichiers de tests existent dans le dépôt, mais `jest` n'est même pas déclaré en dépendance et il n'y a aucun script `npm test` — ces tests n'ont probablement jamais tourné. On a aussi trouvé un bug concret : la création d'un item ne valide jamais que le champ `name` existe.
+
+À partir de ces constats critiques — zéro tests exécutables, zéro CI, persistance dupliquée sans contrainte d'intégrité — on a rédigé 4 ADR, chacun comparant au moins deux alternatives réelles. Et on assume un point important : nos premières pistes étaient plus radicales — TypeScript, PostgreSQL, réécriture hexagonale complète. En reprécisant le mandat de l'exercice, on a révisé ces trois décisions vers des corrections **en place** : JavaScript + JSDoc, SQLite/MySQL corrigés sans changer de moteur, une fine couche de service plutôt qu'une réécriture. On documente ce changement d'avis plutôt que de le cacher — c'est écrit noir sur blanc dans chaque ADR.
+
+Le quatrième ADR porte sur l'événementiel : un bus d'événements interne au process, pas de broker externe, parce qu'on n'a qu'un seul service à faire tourner à ce stade — [état du jour à préciser ici : conception actée, implémentation en cours/faite]. »
+
+> **Note pour le jour J** : ajuster le dernier paragraphe selon l'état réel constaté (est-ce que le flux événementiel et les autres Must Have sont mergés au moment de la soutenance ? cf. `docs/SPRINT1_CHANGELOG.md` pour le statut à jour).
+
+### 4. Roadmap — PO (~1,5 min)
+
+> [Slide : backlog MoSCoW]
+> 📄 **Supports** : `docs/AGILE_GOVERNANCE.md` §3 (backlog complet)
+
+« Ce qu'on a priorisé Must Have pour ce sprint : les corrections critiques de l'audit, la CI bloquante, le flux événementiel minimal. En Should Have : docker-compose, seuil de couverture, protection de branche. On a explicitement mis en Won't Have tout changement de langage ou de base de données, et toute fonctionnalité produit (auth, Kanban) — ça part au Sprint 2.
+
+Pour le Sprint 2, la priorité sera de livrer les premières fonctionnalités produit sur les fondations qu'on vient de poser, en gardant la même discipline : DoD stricte, ADR pour toute décision structurante. »
+
+### 5. Transition — Presenter (~30 sec)
+
+« Voilà pour notre Sprint 1. On est prêts pour vos questions. »
 
 ---
 
-## 2. Binôme 2 — Audit de la dette technique & Architecture cible (Naem, Rayan) (~2,5 min)
+## 3. Après la présentation — à préparer, pas à scripter
 
-> [Slide : matrice de sévérité de l'audit]
-> 📄 **Supports** :
-> - `docs/AUDIT_REPORT.md` §2.6 (frontend React compilé via Babel Standalone) et §2.5 (tests Jest présents mais non exécutables) — pour les deux surprises citées.
-> - `docs/AUDIT_REPORT.md` §2.1 (bug `name: undefined`) et §3 (matrice de sévérité complète, à projeter) — pour les constats critiques.
-> - `docs/adr/ADR-001-strategie-langage-typage.md`, `ADR-002-architecture-applicative.md`, `ADR-003-persistance-donnees.md` — ouvrir en particulier le bandeau **« Note de révision »** en tête de chacun, c'est la preuve écrite du changement d'avis assumé dont on parle à l'oral.
+Ces deux éléments ne sont pas dans les 10 minutes chronométrées mais doivent être **prêts à montrer immédiatement** si le coach les demande en Q&A ou juste après :
 
-« Notre rôle, c'était d'analyser le dépôt fourni sans a priori, et de proposer des pistes d'architecture cible à partir de ce qu'on y a réellement trouvé.
-
-On a d'abord fait un audit ligne par ligne du code existant. Ça nous a permis de trouver des choses qu'on n'attendait pas. Par exemple, on pensait au départ que le frontend était en JavaScript natif. En fait, c'est du React, mais compilé **dans le navigateur** avec Babel, sans build, sans bundler.
-
-Plus important : il existe déjà des fichiers de tests dans le dépôt, écrits avec la syntaxe Jest. On aurait pu croire que le projet était testé. En réalité, `jest` n'est même pas déclaré comme dépendance, et il n'y a aucun script `npm test` — ces tests n'ont probablement jamais tourné dans un pipeline. On a aussi trouvé un vrai bug de fiabilité : la route qui crée un item ne vérifie jamais que le champ `name` envoyé existe.
-
-On a classé chaque constat par sévérité — Faible, Moyenne, Critique — dans notre rapport d'audit. À partir de ces constats critiques — zéro tests exécutables, zéro CI, persistance dupliquée sans contrainte d'intégrité, couplage direct entre les routes et la base de données — on a rédigé nos premières propositions d'architecture cible, comparant à chaque fois au moins deux alternatives réelles.
-
-Petit point important, assumé : nos premières pistes étaient plus radicales — migrer vers TypeScript, migrer vers PostgreSQL. En reprécisant le mandat de l'exercice — piloter un legacy, pas le remplacer — on a révisé nos propositions vers des corrections **en place** : garder JavaScript avec du JSDoc, garder SQLite et MySQL mais corriger leurs défauts concrets, garder la structure de dossiers existante et juste extraire une fine couche de service pour supprimer la duplication qu'on avait trouvée entre les deux drivers de base de données. Ces propositions ont ensuite été discutées et validées par toute l'équipe, elles ne sont pas restées un avis de binôme. »
+- **Historique Git** : avoir un terminal ouvert sur `git log --oneline --graph --all` (ou l'onglet **Insights → Network** de GitHub) pour montrer des commits qui suivent la convention Conventional Commits et des PR liées à des issues.
+- **Exemple de feature respectant le process d'équipe** : choisir à l'avance **une PR mergée concrète** (issue → branche nommée selon la convention → commits conventionnels → PR avec checklist DoD cochée → review approuvée → merge) et être capable de l'ouvrir en 10 secondes. Ne pas improviser ce choix pendant la soutenance.
 
 ---
 
-## 3. Binôme 3 — Outillage, Qualité & Stratégie CI/CD (Florian, Evan) (~2,5 min)
+## 4. Q&A (5 min) — anticiper sans scripter
 
-> [Slide/démo : gabarit ci.yml]
-> 📄 **Supports** :
-> - `.github/workflows/ci.yml` — ouvrir le fichier réel (les 3 jobs `lint`/`test`/`docker-build` et le commentaire d'en-tête qui explique pourquoi il est rouge) plutôt qu'une capture, plus convaincant si le jury demande à voir.
-> - `docs/AGILE_GOVERNANCE.md` §2 (Quality Gate = points 4 et 6 de la DoD) et backlog `[S1-S3]`/`[S1-S4]` (branch protection, seuil de couverture).
-> - `docs/adr/ADR-004-mecanisme-event-driven.md` — pour justifier le choix EventEmitter in-process vs Redis/RabbitMQ.
+Le jury évalue en particulier (cf. Objectifs en tête de document) : la compréhension du but du projet, la clarté de la direction, l'avancement réel, les points à clarifier pour le Sprint 2. Questions probables et où trouver la réponse si besoin de se raccrocher à un document :
 
-« Notre rôle, c'était de définir les garde-fous de qualité et de préparer les gabarits techniques, sans attendre que le code existe pour les écrire — c'est délibéré : on définit d'abord l'exigence, l'équipe la fait passer au vert ensuite.
+| Question probable | Doc de référence |
+|---|---|
+| Pourquoi avoir changé d'avis sur TypeScript/PostgreSQL ? | Bandeaux "Note de révision" des ADR-001/002/003 |
+| Comment vous assurez-vous qu'une PR respecte la DoD ? | `docs/AGILE_GOVERNANCE.md` §2, template de PR (`.github/pull_request_template.md`) |
+| Qu'est-ce qui n'est pas fait / à risque pour la démo ? | `docs/SPRINT1_CHANGELOG.md`, `docs/PLAN_ACTION_SPRINT1.md` §3 |
+| Quel est le prochain Scrum Master ? Comment ça tourne ? | `docs/AGILE_GOVERNANCE.md` §1.2 |
 
-On a défini le Quality Gate : un seuil de couverture de tests, un linter, une analyse statique. On a ensuite préparé le gabarit de pipeline CI en GitHub Actions — trois étapes qui s'enchaînent : lint et format, tests avec couverture, puis build Docker multi-stage. Si une étape casse, les suivantes ne se lancent pas, pour ne pas perdre de temps.
+Toute l'équipe peut répondre, pas seulement le Presenter — le jury demandera probablement à la personne la plus proche du sujet posé.
 
-[Si démo possible : montrer le fichier `.github/workflows/ci.yml`.]
+## 5. Feedback du coach (5 min)
 
-Ce pipeline est volontairement rouge aujourd'hui : il attend un `Dockerfile` qui n'existe pas encore dans le dépôt — on l'a vérifié, il n'y en avait aucun — et des scripts `lint`/`test` que l'équipe ajoutera dans la phase d'exécution. On a aussi défini la politique de protection de la branche principale : Pull Request obligatoire, CI verte requise avant de merger.
-
-Enfin, on a cadré le périmètre du flux événementiel minimal attendu dès ce premier sprint : pas un flux codé aujourd'hui, mais une décision d'architecture — un bus d'événements interne à l'application, sans service externe, parce qu'on n'a qu'un seul process à faire tourner à ce stade. Ce choix est documenté avec ses alternatives et ses limites assumées, prêt à être implémenté dans la phase suivante. »
-
----
-
-## 4. Conclusion — porté par le SM (~1,5 min)
-
-> [Slide : les 4 ADR, board GitHub Projects]
-> 📄 **Supports** :
-> - `docs/adr/` (les 4 fichiers) — pour le rappel des décisions comparées et justifiées.
-> - `docs/AGILE_GOVERNANCE.md` §2 (DoD complète, 8 points) — à garder affichée pendant la phrase sur « aucune exception, même en fin de sprint ».
-> - Le board GitHub Projects réel — pour clore sur une preuve visuelle plutôt qu'une affirmation.
-
-« Pour résumer : ce Sprint 1, dans sa phase de cadrage, ne livre aucune fonctionnalité et aucune ligne de correction encore mergée. Ce qu'il livre, c'est un audit vérifié sur le code réel, quatre décisions d'architecture comparées et justifiées — y compris un changement d'avis assumé et documenté plutôt que caché — un backlog MoSCoW avec un board GitHub Projects opérationnel, une charte d'équipe, et des gabarits de qualité et de CI prêts à être activés.
-
-Notre Definition of Done s'applique dès la première Pull Request de la phase suivante : revue obligatoire, tests, quality gate vert, build Docker qui passe. Aucune exception, même en fin de sprint.
-
-Ce qu'on retient de cette phase de cadrage : comprendre avant de corriger, comparer avant de décider, documenter chaque choix — y compris quand on change d'avis. C'est ce mindset-là qu'on va garder pour la suite du Sprint 1, quand on passera à l'implémentation des corrections qu'on vient de vous présenter. Merci. »
-
+Pas de script : le Scribe prend des notes écrites (pas seulement mentales) de chaque remarque, même informelle. Ces notes alimentent la rétrospective (`docs/RETROSPECTIVE_S1.md`) et le backlog du Sprint 2 — une remarque du coach non tracée par écrit risque d'être oubliée, même règle que pour les décisions d'équipe (charte, §1.3 de `AGILE_GOVERNANCE.md`).
