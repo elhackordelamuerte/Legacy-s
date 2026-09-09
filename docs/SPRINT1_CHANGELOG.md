@@ -1,6 +1,5 @@
 # Changelog Sprint 1 — Foundation & Architecture
 
-Document de suivi partagé (vous + moi) : chaque étape validée y est notée, avec sa preuve. Objectif : voir d'un coup d'œil ce qui est réellement fait vs seulement décidé/documenté. À mettre à jour au fil de l'eau — voir §4.
 
 > **Mise à jour le 09/09** : ce document est désormais rafraîchi par vérification directe du dépôt (`git`/`gh`), pas seulement sur déclaration. En cas de doute, je revérifie plutôt que de supposer.
 
