@@ -33,7 +33,7 @@ Critères : migrations versionnées pour les 4 tables (id UUID, FKs, `password_h
 `POST /auth/register`, `POST /auth/login`, middleware de vérification de token. Mot de passe hashé (bcrypt), jamais loggé en clair.
 
 ### #65 — [S2-M3] Gestion RGPD minimale
-**Assigné** : Zeishy *(vraisemblablement Cédric — à confirmer)* · **Labels** : `priority: must`, `type:feature`, `area: gdpr`
+**Assigné** : Cédric (`Zeishy`) · **Labels** : `priority: must`, `type:feature`, `area: gdpr`
 **Dépend de** : `#63` (champ `consent_given_at` sur `User`)
 
 `consent_given_at` renseigné à l'inscription · `DELETE /users/me` supprime le compte et ses données liées.
@@ -93,6 +93,6 @@ CI verte avec les nouvelles dépendances (Vite, JWT, bcrypt), Dockerfile mis à 
 | Naem | `#63` |
 | Rayan | `#66` (+ finir `#48`, `#52`, `#54`, `#55` de Sprint 1) |
 | Etienne | `#64` |
-| Cédric / Zeishy | `#65` |
+| Cédric (`Zeishy`) | `#65` |
 | Florian | `#67`, `#68` (+ finir `#62`) |
 | Evan | `#69`, `#70` (+ finir `#59`) |

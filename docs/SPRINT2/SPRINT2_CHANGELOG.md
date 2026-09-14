@@ -32,9 +32,9 @@ Suivi partagé, même principe que `docs/SPRINT1_CHANGELOG.md`. Rafraîchi par v
 - ⚠️ **Incident** : le board GitHub Project (#43) était **fermé** au moment de créer les issues Sprint 2 — cause inconnue. Rouvert après confirmation de l'utilisateur (`updateProjectV2` via l'API GraphQL, `closed: false`).
 - ✅ **15 issues créées** (`#63`–`#77`) : 8 Must Have, 4 Should Have, 2 Could Have, 1 tâche de traçabilité (ADR 0005). Toutes ajoutées au board (colonne Backlog, champ MoSCoW renseigné). Détail dans `docs/GITHUB_ISSUES_SPRINT2.md`.
 - 🔧 Erreur de script en cours de route : les 8 premières tentatives de création (Must Have) ont échoué silencieusement côté contenu (mauvaise gestion des guillemets dans une fonction bash) — aucune n'a été créée avant correction, reprises une par une avec succès.
-- ✅ 7 des 8 Must Have assignées à la personne qui les démarre aujourd'hui (Naem `#63`, Etienne `#64`, Zeishy `#65`, Rayan `#66`, Florian `#67`/`#68`, Evan `#69`/`#70`).
-- ⚠️ **Hypothèse non confirmée** : `#65` assignée à `Zeishy`, en déduisant qu'il s'agit de Cédric (déjà observé sur `#44` et les reviews de PR #20/#58 en Sprint 1) — à faire confirmer par l'équipe.
+- ✅ Les 8 Must Have assignées à la personne qui les démarre aujourd'hui (Naem `#63`, Etienne `#64`, Cédric `#65`, Rayan `#66`, Florian `#67`/`#68`, Evan `#69`/`#70`).
 - ✅ `docs/PLAN_ACTION_SPRINT2.md` rédigé : planning jour par jour jusqu'au 18/09, tâches immédiates par personne.
+- 📣 **Retour du correcteur (toutes équipes confondues, pas spécifique à nous)** : aucune équipe n'a abordé la stratégie de déploiement en production, le plan de migration de l'ancienne vers la nouvelle solution, les plans de sauvegarde/rollback avant et après migration, ni l'exploitation quotidienne de la nouvelle solution. Angle mort à traiter (voir §3, point 5).
 
 ### À venir (rien de coché tant que non confirmé)
 
@@ -49,12 +49,27 @@ Suivi partagé, même principe que `docs/SPRINT1_CHANGELOG.md`. Rafraîchi par v
 | # | Constat | Action attendue |
 |---|---|---|
 | 1 | Personne n'a d'expérience React/Vite démontrée — `#67`/`#68` assignées à Florian par défaut | Confirmer en Sprint Planning, réattribuer si besoin |
-| 2 | `#65` assignée sur une identité GitHub non confirmée (`Zeishy` ≈ Cédric ?) | Faire confirmer |
-| 3 | 6 PR Sprint 1 encore ouvertes au lancement de Sprint 2 | Merger avant de considérer Sprint 1 réellement clos |
-| 4 | 4 jours pour 8 items Must Have dont 3 chantiers neufs complets (auth, CRUD, Kanban) | Suivre `docs/PLAN_ACTION_SPRINT2.md` §3 — couper des Should Have plutôt que de dégrader la DoD |
+| 2 | 6 PR Sprint 1 encore ouvertes au lancement de Sprint 2 | Merger avant de considérer Sprint 1 réellement clos |
+| 3 | 4 jours pour 8 items Must Have dont 3 chantiers neufs complets (auth, CRUD, Kanban) | Suivre `docs/PLAN_ACTION_SPRINT2.md` §3 — couper des Should Have plutôt que de dégrader la DoD |
+| 4 | **Angle mort signalé par le correcteur** : ni le déploiement en production, ni la migration de l'ancienne solution, ni le backup/rollback, ni l'exploitation quotidienne ne sont documentés ou planifiés à ce jour | Voir §4 — au minimum documenter la stratégie avant la prochaine revue |
+
+## 4. 📣 Retour du correcteur — angle mort commun à toutes les équipes
+
+> *"No team spoke about deployment strategy to production, migration from the old to the new solution, backup and rollback plans before and after solution migration, how to operate the new solution on a daily basis."*
+
+Ce n'est pas un bug de notre travail spécifiquement — **aucune** équipe n'a couvert ces points en soutenance Sprint 1. Concrètement, ce qui manque à ce jour dans nos documents :
+
+| Sujet | État actuel | Ce qu'il faudrait |
+|---|---|---|
+| Déploiement en production | Un `Dockerfile` existe (Sprint 1), mais rien ne dit **où** l'image tourne réellement, ni comment un déploiement se déclenche | Décrire (même simplement) l'environnement cible et le déclenchement d'un déploiement |
+| Migration ancienne → nouvelle solution | Question déjà ouverte dans `#63` (sort des données `todo_items`) mais pas encore une vraie stratégie | Décrire le plan de bascule : migration des données existantes ou remise à zéro assumée |
+| Backup / rollback | Rien à ce jour | Avant toute migration de schéma : sauvegarde de la base ; en cas d'échec : comment revenir en arrière (image précédente, snapshot DB) |
+| Exploitation quotidienne | `/health` existe (Sprint 1) mais pas de runbook | Un minimum : comment vérifier que l'app tourne, où sont les logs, comment redémarrer |
+
+**Proposition** (à valider avec l'équipe, pas décidé unilatéralement) : ajouter une issue de documentation — un ADR ou un `docs/architecture/deployment-ops.md` couvrant ces 4 points — pour le Sprint 2 ou, si le planning ne le permet pas, en tête du Sprint 3 (*"Stabilisation & Quality"*, qui s'y prête thématiquement). Autant le documenter maintenant que de le découvrir en soutenance.
 
 ---
 
-## 4. Tenue à jour
+## 5. Tenue à jour
 
 Même règle qu'en Sprint 1 : dès qu'une PR ferme une issue Sprint 2, ou en cas de blocage/régression, dites-le-moi ou éditez directement. Objectif : savoir où vous en êtes réellement avant le 18/09, pas enjoliver.

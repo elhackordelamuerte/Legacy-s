@@ -22,9 +22,9 @@ L'architecture cible Sprint 2 est déjà décidée (voir `docs/architecture/targ
 | **Evan** | 3 — Outillage & CI/CD | Finir **PR #59** (couverture de tests), puis démarrer **`#70`** (S2-M8, CI verte avec les nouvelles dépendances) en parallèle de **`#69`** (S2-M7, flux événementiel réel). |
 | **Florian** | 3 — Outillage & CI/CD | Faire merger **PR #62** (docker-compose), puis démarrer **`#67`** (S2-M5, bootstrap Vite) — squelette de projet uniquement aujourd'hui, pas de fonctionnalité. |
 | **Etienne** | 1 — Agile & Backlog | Démarrer **`#64`** (S2-M2, auth JWT) : choix de librairie (`jsonwebtoken` + `bcrypt`), squelette `src/auth/`. |
-| **Cédric / Zeishy** | 1 — Agile & Backlog | Démarrer **`#65`** (S2-M3, RGPD minimale) — dépend du schéma `User` de Naem (`#63`), peut commencer par le squelette d'endpoint `DELETE /users/me` en attendant. |
+| **Cédric** (`Zeishy`) | 1 — Agile & Backlog | Démarrer **`#65`** (S2-M3, RGPD minimale) — dépend du schéma `User` de Naem (`#63`), peut commencer par le squelette d'endpoint `DELETE /users/me` en attendant. |
 
-**Avant la fin de journée, toute l'équipe** : Sprint Planning — confirmer la répartition ci-dessus (en particulier le frontend), et l'assignation de `#65` (faite sur l'identifiant GitHub Zeishy, à confirmer que c'est bien Cédric).
+**Avant la fin de journée, toute l'équipe** : Sprint Planning — confirmer la répartition ci-dessus, en particulier le frontend (voir §3).
 
 ---
 
