@@ -2,7 +2,9 @@
 
 **Format** : 20 minutes — **10 min présentation** + **5 min Q&A** + **5 min feedback du coach**, réparties sur **3 orateurs** (pas les 5 rôles du Sprint 1 — les 3 autres membres soutiennent depuis la salle : chrono, prise de notes, renfort sur les questions techniques).
 
-> ⚠️ **Statut au 23/09** : Must Have cœur **tous fermés** — auth (`#64`), schéma (`#63`), CRUD (`#66`), Kanban (`#68`), RGPD minimal (`#65`), monitoring multi-canaux (`#86`) et dashboard Grafana/Prometheus (`#90`) : tout est mergé sur `main`. Un bug critique trouvé et corrigé au passage (`#92`) : le Dockerfile ne copiait pas les migrations SQL dans l'image, donc l'app démarrait avec un schéma vide en Docker. Should Have avancé aussi : drag & drop (`#71`) et priorités/échéances (`#72`) mergés. Restent ouverts : flux événementiel réel (`#69`, Evan) et CI/Dockerfile complets (`#70`, Evan) côté Must Have ; publication Docker sur un registre (`#73`), notifications frontend (`#74`), ADR 0005 (`#77`) côté Should Have, sans avancement notable. **Note pour le jour J** : revérifier ce statut juste avant de présenter, au cas où `#69`/`#70` auraient bougé entre-temps.
+> ⚠️ **Statut au 23/09** : Must Have cœur **tous fermés** — auth (`#64`), schéma (`#63`), CRUD (`#66`), Kanban (`#68`), RGPD minimal (`#65`), monitoring multi-canaux (`#86`), dashboard Grafana/Prometheus (`#90`) et CI/Dockerfile (`#70`, PR #98) : tout est mergé sur `main`. Un bug critique trouvé et corrigé au passage (`#92`) : le Dockerfile ne copiait pas les migrations SQL dans l'image, donc l'app démarrait avec un schéma vide en Docker. Should Have avancé aussi : drag & drop (`#71`) et priorités/échéances (`#72`) mergés. Un seul Must Have reste ouvert : flux événementiel étendu (`#69`, Evan, pas de mouvement récent). Côté Should Have, sans assigné : publication Docker sur un registre (`#73`), notifications frontend (`#74`), ADR 0005 (`#77`). **Note pour le jour J** : revérifier ce statut juste avant de présenter, au cas où `#69` aurait bougé entre-temps.
+>
+> ⚠️ **Précision technique importante (à ne pas se tromper en Q&A)** : la publication de l'événement `TaskCreated` sur l'EventBus se fait dans `src/services/taskService.js` (la couche de service, appelée par `POST /tasks`), **pas** directement dans `src/routes/tasks.js`. Si quelqu'un grep uniquement le fichier de route, il ne verra pas l'appel `eventBus.publish` et pourrait penser que créer une carte Kanban ne déclenche rien — c'est faux, vérifié dans le code et en conditions réelles (vrai webhook Discord/Telegram). L'ancienne route legacy `/items` (`addItem.js`) publie aussi le même événement, en plus, pas à la place.
 
 ---
 
@@ -73,7 +75,7 @@ Un vrai exemple de discipline d'équipe ce sprint : deux PR ont été ouvertes i
 
 > 📄 **Supports** : board GitHub Projects, milestone *Sprint 2 - Core Features*
 
-« Le cœur fonctionnel est fait : auth, schéma, CRUD, Kanban, RGPD minimal, monitoring et dashboard, tous mergés. Deux Should Have sont passés avec : drag & drop des cartes et priorités/échéances visibles. Ce qui reste ouvert et bascule en fin de sprint ou au Sprint 3 : le flux événementiel étendu à une vraie action produit et la CI/Dockerfile finalisés avec les nouvelles dépendances — les deux chez Evan, sans avancement notable pour l'instant. Publication Docker sur un registre, notifications visibles côté frontend et formalisation de l'ADR 0005 restent en Should Have, sans assigné : à répartir en rétro. »
+« Le cœur fonctionnel est fait : auth, schéma, CRUD, Kanban, RGPD minimal, monitoring, dashboard, et CI/Dockerfile finalisés, tous mergés. Deux Should Have sont passés avec : drag & drop des cartes et priorités/échéances visibles. Ce qui reste ouvert et bascule en fin de sprint ou au Sprint 3 : le flux événementiel étendu à une vraie action produit, chez Evan, sans avancement notable pour l'instant. Publication Docker sur un registre, notifications visibles côté frontend et formalisation de l'ADR 0005 restent en Should Have, sans assigné : à répartir en rétro. »
 
 ### 5. Transition — Orateur 1 (~20 sec)
 
@@ -93,7 +95,8 @@ Un vrai exemple de discipline d'équipe ce sprint : deux PR ont été ouvertes i
 | Pourquoi Grafana maintenant alors que l'ADR l'écartait ? | `docs/architecture/monitoring.md`, section "Ajout Sprint 2" — bien distinguer alerting (notifiers) et visualisation (Grafana) |
 | Avez-vous vraiment testé les notifications, ou juste des mocks ? | Oui, en conditions réelles avant la soutenance : vrai webhook Discord + vrai bot Telegram, message reçu des deux côtés |
 | Comment avez-vous géré le conflit entre les deux PR frontend ? | Commentaire de fermeture sur PR #82, `#67` |
-| Qu'est-ce qui bascule au Sprint 3 ? | Board GitHub, milestone Sprint 3 — notamment `#69`/`#70` s'ils ne bougent pas |
+| Qu'est-ce qui bascule au Sprint 3 ? | Board GitHub, milestone Sprint 3 — notamment `#69` s'il ne bouge pas |
+| Créer une carte Kanban déclenche-t-il vraiment une notification, ou juste l'ancienne route `/items` ? | Oui, les deux : `taskService.js` (route `/tasks`) publie `TaskCreated`, tout comme `addItem.js` (legacy). Vérifié dans le code et en conditions réelles |
 | L'ADR 0005 est-il fait ? | Issue `#77` — non, sans assigné, répondre honnêtement |
 | Le bug Docker (migrations non copiées), comment vous l'avez trouvé ? | En testant `docker compose up` pour de vrai plutôt qu'en se fiant à `npm run dev` — cf. PR #93 |
 
