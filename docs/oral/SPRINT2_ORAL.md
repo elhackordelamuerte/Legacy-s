@@ -2,7 +2,7 @@
 
 **Format** : 20 minutes — **10 min présentation** + **5 min Q&A** + **5 min feedback du coach**, réparties sur **3 orateurs** (pas les 5 rôles du Sprint 1 — les 3 autres membres soutiennent depuis la salle : chrono, prise de notes, renfort sur les questions techniques).
 
-> ⚠️ **Statut au 22/09** : Must Have cœur (auth, schéma, CRUD, Kanban) **tous fermés**. Restent ouverts : flux événementiel réel (`#69`), CI/Dockerfile complets (`#70`), RGPD (`#65`), et le monitoring + dashboard Grafana (`#86`/`#90`, PR `#87` et `#90` en cours). **Note pour le jour J** : recaler le §3/§4 sur l'état réel au moment de la soutenance, en particulier si `#87`/`#90` sont mergées ou non.
+> ⚠️ **Statut au 23/09** : Must Have cœur **tous fermés** — auth (`#64`), schéma (`#63`), CRUD (`#66`), Kanban (`#68`), RGPD minimal (`#65`), monitoring multi-canaux (`#86`) et dashboard Grafana/Prometheus (`#90`) : tout est mergé sur `main`. Un bug critique trouvé et corrigé au passage (`#92`) : le Dockerfile ne copiait pas les migrations SQL dans l'image, donc l'app démarrait avec un schéma vide en Docker. Should Have avancé aussi : drag & drop (`#71`) et priorités/échéances (`#72`) mergés. Restent ouverts : flux événementiel réel (`#69`, Evan) et CI/Dockerfile complets (`#70`, Evan) côté Must Have ; publication Docker sur un registre (`#73`), notifications frontend (`#74`), ADR 0005 (`#77`) côté Should Have, sans avancement notable. **Note pour le jour J** : revérifier ce statut juste avant de présenter, au cas où `#69`/`#70` auraient bougé entre-temps.
 
 ---
 
@@ -57,7 +57,7 @@ Un vrai exemple de discipline d'équipe ce sprint : deux PR ont été ouvertes i
 
 ### 3. Insights & décisions techniques + démo — Orateur 3 (~5 min)
 
-> 📄 **Supports** : PR mergées (`#79` auth, `#80` schéma, `#78` CRUD, `#81`/`#85` frontend), `docs/api/projects-tasks.md`, `docs/architecture/monitoring.md`
+> 📄 **Supports** : PR mergées (`#79` auth, `#80` schéma, `#78` CRUD, `#81`/`#85` frontend, `#87` monitoring+Grafana, `#93` fix Docker, `#94` RGPD), `docs/api/projects-tasks.md`, `docs/architecture/monitoring.md`
 
 « Trois choses à montrer.
 
@@ -65,15 +65,15 @@ Un vrai exemple de discipline d'équipe ce sprint : deux PR ont été ouvertes i
 
 **Deux**, une démo réelle plutôt qu'une promesse : [inscription → connexion → création d'un projet avec ses 3 colonnes → ajout d'une carte → rechargement de page pour montrer que ça persiste]. Chaque bout de cette chaîne est une PR distincte, review et mergée séparément — pas une intégration de dernière minute.
 
-**Trois**, [état à confirmer le jour J] le monitoring. On a construit un système d'alerte multi-canaux (Discord, Telegram, e-mail) qui surveille le bus d'événements et la santé de l'application, avec une règle simple : jamais de canal configuré qui casse l'app, jamais de spam. Et pour cette soutenance, on l'a complété avec un vrai dashboard Grafana/Prometheus — pas pour remplacer les alertes, pour les compléter : les notifiers répondent à *"préviens-moi quand X arrive"*, le dashboard répond à *"montre-moi la tendance dans le temps"*. Deux besoins différents, deux outils différents, documentés comme un ajout et non une remise en cause de la décision initiale. [Démo : créer une tâche, montrer le compteur bouger sur le dashboard.] »
+**Trois**, le monitoring. On a construit un système d'alerte multi-canaux (Discord, Telegram, e-mail) qui surveille le bus d'événements et la santé de l'application, avec une règle simple : jamais de canal configuré qui casse l'app, jamais de spam. Et pour cette soutenance, on l'a complété avec un vrai dashboard Grafana/Prometheus — pas pour remplacer les alertes, pour les compléter : les notifiers répondent à *"préviens-moi quand X arrive"*, le dashboard répond à *"montre-moi la tendance dans le temps"*. Deux besoins différents, deux outils différents, documentés comme un ajout et non une remise en cause de la décision initiale. Les deux sont mergés, et on les a testés en conditions réelles avant la soutenance — un vrai webhook Discord et un vrai bot Telegram, pas des mocks : créer une tâche envoie effectivement un message dans les deux. [Démo : créer une tâche, montrer le message arriver sur Discord/Telegram et le compteur bouger sur le dashboard Grafana.]
 
-> **Note pour le jour J** : si `#87`/`#90` ne sont pas mergées à temps, dire clairement *"en cours de revue, voici où ça en est"* plutôt que de présenter comme acquis quelque chose qui ne l'est pas — cohérent avec la rigueur du Sprint 1.
+**Quatre**, un bug qu'on n'aurait pas vu sans tester pour de vrai. En vérifiant le dashboard Grafana en local avec Docker, on s'est rendu compte que l'image ne copiait jamais le dossier des migrations SQL : l'app démarrait sans erreur, mais avec un schéma de base vide — rien ne marchait dès qu'on passait par `docker compose up`, ce qui aurait été catastrophique un jour de démo. Invisible en développement local, où le chemin de fichier est différent. Corrigé en une ligne, mais ça illustre bien pourquoi on teste sur la vraie stack et pas seulement sur `npm run dev`. »
 
 ### 4. Roadmap — Orateur 1 (~1 min 30)
 
 > 📄 **Supports** : board GitHub Projects, milestone *Sprint 2 - Core Features*
 
-« Le cœur fonctionnel est fait : auth, schéma, CRUD, Kanban minimal, tous mergés. Ce qui reste ouvert et bascule en fin de sprint ou au Sprint 3 : le flux événementiel étendu à une vraie action produit, la CI et le Dockerfile finalisés avec les nouvelles dépendances, et la gestion RGPD complète — actuellement limitée au consentement à l'inscription. Le drag & drop, les priorités/deadlines visibles et la publication Docker sur un registre restent en Should Have, pas encore traités : on a choisi de sécuriser le cœur plutôt que d'étaler l'effort. »
+« Le cœur fonctionnel est fait : auth, schéma, CRUD, Kanban, RGPD minimal, monitoring et dashboard, tous mergés. Deux Should Have sont passés avec : drag & drop des cartes et priorités/échéances visibles. Ce qui reste ouvert et bascule en fin de sprint ou au Sprint 3 : le flux événementiel étendu à une vraie action produit et la CI/Dockerfile finalisés avec les nouvelles dépendances — les deux chez Evan, sans avancement notable pour l'instant. Publication Docker sur un registre, notifications visibles côté frontend et formalisation de l'ADR 0005 restent en Should Have, sans assigné : à répartir en rétro. »
 
 ### 5. Transition — Orateur 1 (~20 sec)
 
@@ -91,9 +91,11 @@ Un vrai exemple de discipline d'équipe ce sprint : deux PR ont été ouvertes i
 | Question probable | Doc de référence |
 |---|---|
 | Pourquoi Grafana maintenant alors que l'ADR l'écartait ? | `docs/architecture/monitoring.md`, section "Ajout Sprint 2" — bien distinguer alerting (notifiers) et visualisation (Grafana) |
+| Avez-vous vraiment testé les notifications, ou juste des mocks ? | Oui, en conditions réelles avant la soutenance : vrai webhook Discord + vrai bot Telegram, message reçu des deux côtés |
 | Comment avez-vous géré le conflit entre les deux PR frontend ? | Commentaire de fermeture sur PR #82, `#67` |
-| Qu'est-ce qui bascule au Sprint 3 ? | Board GitHub, milestone Sprint 3 |
-| L'ADR 0005 est-il fait ? | Issue `#77` — répondre honnêtement selon l'état réel |
+| Qu'est-ce qui bascule au Sprint 3 ? | Board GitHub, milestone Sprint 3 — notamment `#69`/`#70` s'ils ne bougent pas |
+| L'ADR 0005 est-il fait ? | Issue `#77` — non, sans assigné, répondre honnêtement |
+| Le bug Docker (migrations non copiées), comment vous l'avez trouvé ? | En testant `docker compose up` pour de vrai plutôt qu'en se fiant à `npm run dev` — cf. PR #93 |
 
 ## 5. Feedback du coach
 
