@@ -66,12 +66,23 @@ done
 
 cd "$PERSO_ROOT"
 
-if [[ -z "$(git status --porcelain -- docs/)" ]]; then
+# `git add` ciblé sur la liste blanche uniquement : jamais `docs/` en bloc,
+# pour ne pas embarquer un fichier parasite qui traînerait dans le dossier
+# (ex. .DS_Store) sans rapport avec cette synchronisation.
+ADD_PATHS=()
+for f in "${FILES[@]}"; do
+  [[ -f "$PERSO_DOCS/$f" ]] && ADD_PATHS+=("docs/$f")
+done
+for d in "${DIRS[@]}"; do
+  [[ -d "$PERSO_DOCS/$d" ]] && ADD_PATHS+=("docs/$d")
+done
+
+if [[ -z "$(git status --porcelain -- "${ADD_PATHS[@]}")" ]]; then
   echo "Rien de nouveau à synchroniser."
   exit 0
 fi
 
-git add docs/
+git add "${ADD_PATHS[@]}"
 git commit -m "chore(docs): synchronise les documents personnels ($(date '+%Y-%m-%d %H:%M'))"
 
 if [[ "${1:-}" == "--no-push" ]]; then
