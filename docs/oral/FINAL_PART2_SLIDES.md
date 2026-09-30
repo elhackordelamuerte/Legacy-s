@@ -130,14 +130,6 @@ check the Discord/Telegram notification arrive.
 
 ---
 
-## Slide 10 — What's left, honestly
-
-Must-have gaps, in progress: `#102` (Docker not serving the frontend), `#73` (registry publication),
-`#69` (event-driven flow extension — baseline requirement already met, this is additional depth).
-Should-have items (`#74`, `#75` home screen, `#96`, `#103`, no coverage threshold) — status as of
-defense day, updated live if needed.
-
-> Speaker 1 · ~40s
 
 ---
 

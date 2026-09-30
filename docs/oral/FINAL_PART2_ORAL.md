@@ -142,10 +142,7 @@ minute, et on préfère le dire plutôt que de laisser croire que c'est réglé.
 
 > 📄 Support : slides 8, 9 — **choisir la PR à l'avance, la plus complète et propre à raconter**
 
-« Pour finir, on va vous montrer une fonctionnalité de bout en bout, en respectant tout notre
-process : l'issue de départ, la branche, les commits — contrat avant implémentation — la pull
-request, la revue avec la Definition of Done, le merge, puis la démonstration dans l'app.
-
+«
 [Dérouler en direct sur GitHub : l'issue → la branche → 2-3 commits significatifs → la PR avec sa
 checklist DoD cochée → l'approbation → le merge.]
 
@@ -155,20 +152,8 @@ d'une échéance, rechargement de la page pour montrer que tout persiste. Et pen
 on regarde le dashboard Grafana bouger en quasi temps réel, et on vérifie que la notification
 arrive bien sur Discord et Telegram. »
 
-### 8. Ce qu'il reste, honnêtement — Orateur 1 (~40 s)
 
-> 📄 Support : slide 10 — **actualiser juste avant de présenter**
-
-« Ce qui reste ouvert, à l'instant où on vous parle, côté Must Have : `#102`, le Dockerfile qui ne
-sert pas encore le frontend, `#73`, la publication de l'image sur un registre, et `#69`,
-l'extension du flux événementiel — étant précisé que l'exigence de base du sujet sur ce dernier
-point est déjà satisfaite, il s'agit d'approfondir, pas de combler un trou. Le reste — `#74`, l'écran
-d'accueil complet, `#96`, `#103`, l'absence de seuil de couverture — reste en Should Have, avec un
-état qu'on va vérifier une dernière fois juste avant de monter sur scène pour vous donner le chiffre
-exact, pas une estimation
-d'hier. »
-
-### 9. Transition — Orateur 1 (~20 s)
+### 8. Transition — Orateur 1 (~20 s)
 
 « Voilà pour notre bilan. On est prêts pour vos questions, et n'importe qui dans l'équipe peut
 reprendre la main sur un point technique précis. »
