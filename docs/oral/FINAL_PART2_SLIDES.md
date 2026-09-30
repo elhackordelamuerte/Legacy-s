@@ -64,8 +64,11 @@ Part 2: Deep Dive & Live Demo
   2. A deleted user's JWT stayed valid and could crash the server, leaking a SQL stack trace
 - Lesson taken into practice: verify manually against real infrastructure (real Docker, real
   webhooks) before trusting "all tests green"
+- Gap disclosed: the brief's Definition of Done names a required code coverage level as its own
+  criterion, separate from the general quality gate — ours doesn't enforce a threshold; coverage
+  is measured, not gated
 
-> Speaker 3 · ~3 min
+> Speaker 3 · ~3 min 30
 
 ---
 
@@ -129,9 +132,10 @@ check the Discord/Telegram notification arrive.
 
 ## Slide 10 — What's left, honestly
 
-Must-have gaps, both in progress: `#102` (Docker not serving the frontend), `#69` (event-driven
-flow extension). Should-have items (`#73`, `#74`, `#96`, `#103`) — status as of defense day,
-updated live if needed.
+Must-have gaps, in progress: `#102` (Docker not serving the frontend), `#73` (registry publication),
+`#69` (event-driven flow extension — baseline requirement already met, this is additional depth).
+Should-have items (`#74`, `#75` home screen, `#96`, `#103`, no coverage threshold) — status as of
+defense day, updated live if needed.
 
 > Speaker 1 · ~40s
 

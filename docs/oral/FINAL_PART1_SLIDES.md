@@ -1,6 +1,6 @@
 # Slides — Final Project Defense, Part 1: Sprint 3 & Final Review
 
-Part 1 of 2 (~15 min). Part 2 (deep dive + live demo + closing) is a separate deck:
+Part 1 of 2 (~16 min). Part 2 (deep dive + live demo + closing) is a separate deck:
 `FINAL_PART2_SLIDES.md` / `FINAL_PART2_ORAL.md`.
 Minimal text on screen — the script (`FINAL_PART1_ORAL.md`, in French) carries the spoken content.
 Each slide is tagged with the speaker and rough duration.
@@ -123,19 +123,27 @@ instead of deleting a task when only the assignee (not the owner) is removed.
 
 ## Slide 8 — Final product perimeter: known gaps
 
-Said out loud, not hidden:
+Said out loud, not hidden. **Must Have** (per the brief, §6.1):
 
 - Docker image doesn't build/serve the frontend yet (`#102`, in progress) — a fresh
   `docker compose up` doesn't show the app on `/`
-- Event-driven flow stays limited to `TaskCreated` → notification; no persisted business
-  consequence beyond that (`#69`)
+- Docker image not yet published to a registry (`#73`, in progress)
+- The brief's baseline requirement — *"at least one demonstrable event-driven workflow"* — is
+  **already satisfied**: `TaskCreated` → EventBus → multi-channel notifier, merged and verified
+  with real Discord/Telegram. `#69` extends this further (a persisted business consequence beyond
+  notification), still in progress — additional depth, not a missing baseline requirement
+
+**Should Have**:
 - No full RGAA audit (106 criteria on a representative sample) — a partial audit found and fixed
   a contrast issue, but drag & drop still has **no keyboard alternative** (mouse/touch only) —
   detail in Part 2
-- Docker image not published to a registry; in-app (non-external) notifications not built
-- ADR 0005 still in review
+- Personalised home screen (`#75`): the "your projects" half is done, the "your assigned tasks
+  across all projects" half isn't — closed as done, it actually isn't fully
+- In-app (non-external) notifications not built; ADR 0005 still in review
+- No enforced code coverage threshold — the brief's DoD names it as a distinct criterion from the
+  general quality gate; ours doesn't have one, tests are run but not gated on a percentage
 
-> Speaker 1 · ~1 min 30 · *honesty here matters more than a clean slide*
+> Speaker 1 · ~2 min · *honesty here matters more than a clean slide*
 
 ---
 

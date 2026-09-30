@@ -89,7 +89,11 @@ ne reproduit pas l'environnement réel qui a révélé le problème.
 
 La leçon qu'on en tire concrètement : avant de dire "tous les tests sont verts, c'est prêt", on
 vérifie aussi à la main contre la vraie infrastructure — vrai Docker, vrais webhooks — pas
-uniquement contre des mocks. »
+uniquement contre des mocks.
+
+Un gap qu'on assume aussi : le sujet distingue explicitement, dans sa Definition of Done, un
+niveau de couverture de tests requis du quality gate général. Chez nous, la couverture est
+mesurée à chaque run, mais aucun seuil n'est imposé pour merger — on ne l'a pas mis en place. »
 
 ### 5. Process de travail — Orateur 2 (~2 min)
 
@@ -156,9 +160,12 @@ arrive bien sur Discord et Telegram. »
 > 📄 Support : slide 10 — **actualiser juste avant de présenter**
 
 « Ce qui reste ouvert, à l'instant où on vous parle, côté Must Have : `#102`, le Dockerfile qui ne
-sert pas encore le frontend, et `#69`, l'extension du flux événementiel — les deux en cours. Le
-reste — `#73`, `#74`, `#96`, `#103` — reste en Should Have, avec un état qu'on va vérifier une
-dernière fois juste avant de monter sur scène pour vous donner le chiffre exact, pas une estimation
+sert pas encore le frontend, `#73`, la publication de l'image sur un registre, et `#69`,
+l'extension du flux événementiel — étant précisé que l'exigence de base du sujet sur ce dernier
+point est déjà satisfaite, il s'agit d'approfondir, pas de combler un trou. Le reste — `#74`, l'écran
+d'accueil complet, `#96`, `#103`, l'absence de seuil de couverture — reste en Should Have, avec un
+état qu'on va vérifier une dernière fois juste avant de monter sur scène pour vous donner le chiffre
+exact, pas une estimation
 d'hier. »
 
 ### 9. Transition — Orateur 1 (~20 s)
@@ -189,6 +196,15 @@ reprendre la main sur un point technique précis. »
 | Un exemple concret de ce que vous avez trouvé ? | Contraste insuffisant sur 2 badges de priorité (3.19:1 et 3.09:1 vs. 4.5:1 requis), corrigé le jour même — issue `#107` |
 | Et ce qui reste non conforme ? | Le drag & drop n'a aucune alternative clavier — assumé, pas caché, nécessiterait une réécriture de l'interaction |
 | Un outil suffit pour être conforme RGAA ? | Non — même l'outil officiel (Ara, DINUM) n'est pas automatique, il demande un jugement d'expert sur un échantillon de pages |
+
+## Q&A à anticiper — points relevés en recroisant le sujet du projet
+
+| Question probable | Réponse |
+|---|---|
+| Quel est votre seuil de couverture de tests ? | Aucun seuil imposé pour merger — la couverture est mesurée à chaque run mais pas gatée. Gap assumé face au sujet, qui la distingue explicitement du quality gate général |
+| L'écran d'accueil personnalisé est fait ? | À moitié : la liste des projets, oui ; la vue agrégée des tâches assignées tous projets confondus, non — l'issue avait été fermée par erreur comme complète, corrigé dans ce bilan |
+| Vous avez bien un flux événementiel démontrable ? | Oui, en production : `TaskCreated` → EventBus → notifieur multi-canaux, vérifié avec de vrais Discord/Telegram. `#69` est une extension au-delà de cette exigence de base, pas la brique elle-même |
+| L'image Docker est publiée sur un registre ? | Pas encore — en cours (`#73`), reclassé Must Have suite à la relecture du sujet, initialement mal classé en Should Have |
 
 ## Feedback du coach (5 min)
 

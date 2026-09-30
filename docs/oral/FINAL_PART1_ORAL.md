@@ -1,6 +1,6 @@
 # Script — Soutenance finale, Partie 1 : Sprint 3 & bilan final (3 orateurs)
 
-**Partie 1 sur 2, ~15 minutes.** La Partie 2 (deep dive, démo live, clôture, Q&A, feedback du
+**Partie 1 sur 2, ~16 minutes.** La Partie 2 (deep dive, démo live, clôture, Q&A, feedback du
 coach) est un document séparé : `FINAL_PART2_ORAL.md` / `FINAL_PART2_SLIDES.md`. Slides en anglais
 (`FINAL_PART1_SLIDES.md`), script en français. 3 orateurs présentent, les 3 autres membres de
 l'équipe sont dans la salle et peuvent reprendre la main sur une question technique pointue à tout
@@ -22,7 +22,7 @@ moment — ce n'est pas réservé aux 3 orateurs.
 | **Orateur 2** | Organisation, stats/contributions | Slides 3, 9-10 |
 | **Orateur 3** | ADR, architecture, modèle de données | Slides 4-6 |
 
-## 1. Trame minutée (~15 min)
+## 1. Trame minutée (~16 min)
 
 | Temps | Section | Orateur |
 |---|---|---|
@@ -30,9 +30,9 @@ moment — ce n'est pas réservé aux 3 orateurs.
 | 0:20–1:50 | Contexte du projet | 1 |
 | 1:50–3:50 | Organisation finale de l'équipe | 2 |
 | 3:50–6:50 | Décisions techniques (ADR) + architecture finale + modèle de données | 3 |
-| 6:50–10:20 | Périmètre produit final : livré / manquant | 1 |
-| 10:20–13:20 | Stats générales + contributions par personne | 2 |
-| 13:20–15:20 | Insights personnels (les 3 orateurs) | 1, 2, 3 |
+| 6:50–11:20 | Périmètre produit final : livré / manquant | 1 |
+| 11:20–14:00 | Stats générales + contributions par personne | 2 |
+| 14:00–16:00 | Insights personnels (les 3 orateurs) | 1, 2, 3 |
 
 ---
 
@@ -118,12 +118,23 @@ d'erreurs générique qui ne renvoie plus jamais de détail technique au client,
 que le compte associé à un jeton JWT existe toujours.
 
 Maintenant, ce qui manque, et on préfère le dire clairement plutôt que de le laisser découvrir en
-Q&A : le Dockerfile ne construit toujours pas le frontend — une image Docker fraîche ne sert rien
-d'utilisable sur `/`, c'est en cours de correction, prévu pour demain. Le flux événementiel reste
-limité à `TaskCreated` déclenchant une notification, sans aller jusqu'à une vraie conséquence
-métier persistée au-delà de ça. Côté accessibilité — on y revient en détail en deuxième partie — un
-audit partiel a été fait, pas un audit RGAA complet, et le drag & drop n'a toujours aucune
-alternative clavier. Et l'image Docker n'est pas publiée sur un registre. »
+Q&A. Côté Must Have du sujet : le Dockerfile ne construit toujours pas le frontend — une image
+Docker fraîche ne sert rien d'utilisable sur `/`, en cours de correction. Et l'image Docker n'est
+pas encore publiée sur un registre — c'est explicitement du Must Have dans le sujet, pas du confort,
+en cours également. Une précision importante en revanche : l'exigence de base du sujet — *"au moins
+un flux événementiel complet et démontrable"* — est **déjà satisfaite**, en production : créer une
+tâche publie un événement sur l'EventBus, consommé par le service de notification, qui envoie
+vraiment un message Discord et Telegram. Ce qui reste ouvert sur ce sujet, c'est d'aller plus loin
+— une conséquence métier persistée au-delà de la simple notification — mais ce n'est pas la brique
+de base qui manquerait.
+
+Côté Should Have : un audit d'accessibilité partiel a été fait, pas un audit RGAA complet — on y
+revient en détail en deuxième partie — et le drag & drop n'a toujours aucune alternative clavier.
+L'écran d'accueil personnalisé attendu par le sujet est à moitié fait : la liste "mes projets"
+existe, mais pas la vue agrégée "mes tâches assignées, tous projets confondus" — fermé comme fait
+par erreur, on préfère le corriger ici. Et il n'y a pas de seuil de couverture de tests imposé : le
+sujet le distingue explicitement du quality gate général dans sa Definition of Done, nous ne
+l'avons pas — les tests tournent, mais sans seuil de pourcentage à respecter. »
 
 ### 5. Stats générales + contributions par personne — Orateur 2 (~3 min)
 
