@@ -66,7 +66,7 @@ Architecture/Persistance, Outillage & CI/CD — un Product Owner fixe sur les tr
 Scrum Master qui tourne à chaque sprint. Les cérémonies n'ont pas changé non plus : daily
 stand-up, sprint planning, sprint review, rétrospective — et une règle qu'on a vraiment appliquée
 du début à la fin : toute décision, tout blocage discuté à l'oral est reporté par écrit le jour
-même, dans une issue ou un commentaire de PR. Si ce n'est pas écrit, ça n'a pas eu lieu.
+même, dans une issue ou un commentaire de PR.
 
 Un exemple concret de cette discipline, au Sprint 2 : deux personnes ont ouvert, chacune de son
 côté, une PR pour la même fonctionnalité frontend, avec deux architectures différentes. Plutôt que
@@ -78,7 +78,7 @@ doublon d'effort assumé. »
 
 > 📄 Support : slides 4, 5, 6 — `docs/architecture/adr/`, `docs/architecture/target-architecture.md`
 
-« Cinq décisions structurantes ont été tracées en ADR, au format Nygard — contexte, au moins deux
+« Cinq décisions structurantes ont été tracées en ADR, contexte, au moins deux
 alternatives comparées, décision, conséquences assumées. Pas des choix a posteriori justifiés après
 coup : écrits avant ou pendant l'implémentation.
 
@@ -117,24 +117,13 @@ en direct. Et deux durcissements de sécurité trouvés en testant la vraie stac
 d'erreurs générique qui ne renvoie plus jamais de détail technique au client, et une vérification
 que le compte associé à un jeton JWT existe toujours.
 
-Maintenant, ce qui manque, et on préfère le dire clairement plutôt que de le laisser découvrir en
-Q&A. Côté Must Have du sujet : le Dockerfile ne construit toujours pas le frontend — une image
-Docker fraîche ne sert rien d'utilisable sur `/`, en cours de correction. Et l'image Docker n'est
-pas encore publiée sur un registre — c'est explicitement du Must Have dans le sujet, pas du confort,
-en cours également. Une précision importante en revanche : l'exigence de base du sujet — *"au moins
+Une précision importante : l'exigence de base du sujet — *"au moins
 un flux événementiel complet et démontrable"* — est **déjà satisfaite**, en production : créer une
 tâche publie un événement sur l'EventBus, consommé par le service de notification, qui envoie
 vraiment un message Discord et Telegram. Ce qui reste ouvert sur ce sujet, c'est d'aller plus loin
 — une conséquence métier persistée au-delà de la simple notification — mais ce n'est pas la brique
 de base qui manquerait.
 
-Côté Should Have : un audit d'accessibilité partiel a été fait, pas un audit RGAA complet — on y
-revient en détail en deuxième partie — et le drag & drop n'a toujours aucune alternative clavier.
-L'écran d'accueil personnalisé attendu par le sujet est à moitié fait : la liste "mes projets"
-existe, mais pas la vue agrégée "mes tâches assignées, tous projets confondus" — fermé comme fait
-par erreur, on préfère le corriger ici. Et il n'y a pas de seuil de couverture de tests imposé : le
-sujet le distingue explicitement du quality gate général dans sa Definition of Done, nous ne
-l'avons pas — les tests tournent, mais sans seuil de pourcentage à respecter. »
 
 ### 5. Stats générales + contributions par personne — Orateur 2 (~3 min)
 
