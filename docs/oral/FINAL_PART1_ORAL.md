@@ -110,7 +110,11 @@ l'assignation disparaît, pas la tâche. »
 « Ce qui est réellement livré et mergé : l'authentification JWT complète, le RGPD minimal —
 consentement explicite à l'inscription, droit à l'effacement avec cascade, et l'export des données
 personnelles. Le Kanban complet : projets, colonnes, tâches, drag & drop entre colonnes, priorité
-et échéance visibles sur les cartes. Le monitoring multi-canaux — Discord, Telegram, e-mail —
+et échéance visibles sur les cartes. La collaboration multi-utilisateurs sur un même projet :
+inviter un autre membre par e-mail, avec les mêmes droits que le propriétaire sur les tâches, mais
+jamais sur la gestion du projet lui-même ; assigner une tâche à un membre, avec une vérification
+côté serveur que cette personne a bien accès au projet ; modifier et supprimer une tâche
+directement depuis sa carte, via un menu dédié. Le monitoring multi-canaux — Discord, Telegram, e-mail —
 qu'on a testé avec de vrais webhooks et un vrai bot, pas des mocks : créer une tâche envoie
 vraiment un message. Le dashboard Grafana/Prometheus, vérifié avec de vraies données qui bougent
 en direct. Et deux durcissements de sécurité trouvés en testant la vraie stack : un gestionnaire

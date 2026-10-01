@@ -111,6 +111,9 @@ instead of deleting a task when only the assignee (not the owner) is removed.
 - **Auth**: JWT register/login, bcrypt hashing, account deletion with cascade
 - **GDPR**: explicit consent checkbox at registration, right to erasure, right to data export/portability
 - **Kanban**: projects/columns/tasks CRUD, drag & drop between columns, priority + due date on cards
+- **Collaboration**: invite a project member by e-mail (same task rights as the owner, project
+  management itself reserved to the owner), server-validated task assignment, edit/delete a task
+  from its card
 - **Monitoring**: multi-channel alerts (Discord/Telegram/e-mail) on business events and health
   transitions — verified with real webhooks/bot, not mocks
 - **Observability**: Prometheus + Grafana dashboard, pre-provisioned, verified with real data
