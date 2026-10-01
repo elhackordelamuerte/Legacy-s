@@ -89,8 +89,7 @@ les deux, corrigés en place plutôt que remplacés par un unique moteur. L'ADR 
 JavaScript avec JSDoc et `checkJs` plutôt que TypeScript — du typage réel, sans migration de
 langage. L'ADR 0004 formalise une couche de service, extraite progressivement, qui centralise
 toute la logique métier et la validation. Le cinquième, l'ADR 0005, regroupe trois choix qui
-n'avaient jamais été comparés à une alternative — Vite, JWT, la stratégie de validation — il est
-encore en revue à l'heure où je vous parle, pas encore mergé.
+n'avaient jamais été comparés à une alternative — Vite, JWT, la stratégie de validation.
 
 Concrètement, l'architecture finale ressemble à ça [montrer le diagramme, slide 5] : un frontend
 SPA qui parle en REST à l'API, un module d'authentification JWT, un event bus qui découple le
@@ -133,11 +132,10 @@ de base qui manquerait.
 
 > 📄 Support : slides 9, 10
 
-« Quelques chiffres, tous vérifiés directement sur le dépôt, pas des estimations. 118 commits,
-43 pull requests mergées, 57 issues GitHub ouvertes sur les trois sprints dont 48 fermées. Cinq
-ADR, dont quatre mergés. 362 tests backend et 19 tests frontend qui passent sur `main` en ce
-moment — plus encore sur les PR en cours de revue. Environ 3 900 lignes de code backend, 1 500
-côté frontend.
+« Quelques chiffres, tous vérifiés directement sur le dépôt, pas des estimations. 135 commits,
+57 pull requests mergées, 63 issues GitHub ouvertes sur les trois sprints dont 62 fermées. Cinq
+ADR, tous mergés. 477 tests backend et 48 tests frontend qui passent sur `main` en ce
+moment. Environ 4 900 lignes de code backend, 3 300 côté frontend.
 
 Deux bugs critiques trouvés, tous les deux en testant la vraie infrastructure plutôt qu'en se
 fiant aux seuls tests unitaires : une image Docker qui démarrait avec un schéma de base
@@ -145,12 +143,11 @@ complètement vide parce que les migrations n'étaient jamais copiées dedans, e
 compte supprimé qui restait valide et pouvait faire planter le serveur en exposant une trace SQL
 complète au client. Les deux ont été corrigés dans la semaine de leur découverte.
 
-Côté répartition du travail [montrer le tableau, slide 10] : Rayan et Naem portent la persistance
+Côté répartition du travail : Rayan et Naem portent la persistance
 et l'API CRUD avec dix et neuf PR mergées chacun. Cédric porte tout le frontend — Vite, Kanban,
 drag & drop, export RGPD. Evan porte le monitoring, Grafana/Prometheus et une bonne partie de la
 CI. Etienne porte l'authentification et les corrections de sécurité. Florian porte les fondations
-Docker/CI et la stabilisation de fin de sprint. Ce ne sont pas des rôles figés sur le papier — ce
-sont des PR réellement mergées, qu'on peut montrer une par une. »
+Docker/CI et la stabilisation de fin de sprint.»
 
 ### 6. Insights personnels — Orateurs 1, 2, 3 (~2 min, ~20s chacun)
 

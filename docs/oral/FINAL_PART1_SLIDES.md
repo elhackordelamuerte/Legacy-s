@@ -57,10 +57,10 @@ Team (6): Cédric · Etienne · Naem · Rayan · Florian · Evan
 | 0002 | Persistence: fix SQLite/MySQL in place, no rewrite |
 | 0003 | Language: JavaScript + JSDoc + `checkJs`, not TypeScript |
 | 0004 | Application architecture: incremental extraction of a service layer |
-| 0005 | Vite / JWT / validation — *in review, not yet merged* |
+| 0005 | Vite / JWT / validation — hybrid decision bundling three choices |
 
-5 ADRs total, Nygard format (Context → Alternatives → Decision → Consequences) — every structuring
-choice traced, not just decided in a standup.
+5 ADRs total, all merged, Nygard format (Context → Alternatives → Decision → Consequences) — every
+structuring choice traced, not just decided in a standup.
 
 > Speaker 3 · ~2 min
 
@@ -126,10 +126,10 @@ instead of deleting a task when only the assignee (not the owner) is removed.
 
 ## Slide 8 — General project stats
 
-- **118** commits · **43** merged PRs (2 closed without merging) · **57** GitHub issues (48 closed)
-- **5** ADRs (4 merged, 1 in review)
-- **362** backend tests / **19** frontend tests passing on `main` (higher on PRs in review)
-- **~3,900** lines of backend code, **~1,500** lines of frontend code
+- **135** commits · **57** merged PRs (2 closed without merging) · **63** GitHub issues (62 closed)
+- **5** ADRs, all merged
+- **477** backend tests / **48** frontend tests passing on `main`
+- **~4,900** lines of backend code, **~3,300** lines of frontend code
 - 2 critical bugs found and fixed by testing the real stack, not just unit tests: missing DB
   migrations in the Docker image, JWT still valid after account deletion
 
