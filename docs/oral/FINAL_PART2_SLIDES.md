@@ -5,8 +5,8 @@ feedback). Follows directly after Part 1: `FINAL_PART1_SLIDES.md` / `FINAL_PART1
 Minimal text on screen — the script (`FINAL_PART2_ORAL.md`, in French) carries the spoken content.
 Each slide is tagged with the speaker and rough duration.
 
-> Update before the defense day: slide 10 (what's left) and the live demo feature choice (slide 8)
-> depend on the exact state of issues `#69`, `#96`, `#97`, `#99`, `#102`, `#105` at that time.
+> Update before the defense day: the live demo feature choice (slide 8) should be confirmed as a
+> team.
 
 ---
 
@@ -49,8 +49,9 @@ Part 2: Deep Dive & Live Demo
 - Pipeline: lint → format check → unit tests → **full Docker Compose stack** (`app`, `db`,
   `prometheus`, `grafana`) built and health-checked, not just unit tests in isolation
 - Feedback loop: a broken Docker build fails CI before it fails a live demo
-- Gap disclosed: CI validates the API responds, but not yet that the frontend is actually served
-  (`#102`) — CI is honest about what it does and doesn't cover
+- Caught this way: the Docker image shipped with an empty `src/static` because the frontend build
+  wasn't wired into the Dockerfile — fixed with a multi-stage build that compiles the Vite frontend
+  before the runtime stage
 
 > Speaker 3 · ~3 min
 
@@ -58,15 +59,15 @@ Part 2: Deep Dive & Live Demo
 
 ## Slide 5 — QA strategy
 
-- 381 automated tests (backend + frontend) — but the two most serious bugs of the project were
+- 525 automated tests (backend + frontend) — but the two most serious bugs of the project were
   found by **testing the real stack**, not by unit tests:
   1. Docker image shipped with an empty database schema (migrations never copied)
   2. A deleted user's JWT stayed valid and could crash the server, leaking a SQL stack trace
 - Lesson taken into practice: verify manually against real infrastructure (real Docker, real
   webhooks) before trusting "all tests green"
-- Gap disclosed: the brief's Definition of Done names a required code coverage level as its own
-  criterion, separate from the general quality gate — ours doesn't enforce a threshold; coverage
-  is measured, not gated
+- Nuance: an 80% coverage threshold is configured in Jest and enforced by CI on the backend
+  (currently 91-97%) — but no GitHub branch protection on `main` physically blocks a merge on a red
+  check, and the frontend has no equivalent threshold
 
 > Speaker 3 · ~3 min 30
 
@@ -100,8 +101,8 @@ requires expert human judgment on a representative page sample.
   automated): priority already used text + color together, never color alone
 - **Found and fixed**: 2 of 3 priority badges failed WCAG AA color contrast (3.19:1 and 3.09:1 vs.
   the 4.5:1 required) — darkened, same color family, same meaning, no behavior change
-- **Found, not fixed, disclosed**: drag & drop has no keyboard alternative — a real RGAA gap,
-  would need a non-trivial interaction redesign, not a same-day fix
+- **Found and fixed**: drag & drop had no keyboard alternative — added ◀/▶ buttons on each card,
+  with an explicit label announcing the destination column, reusing the same move logic
 
 > Speaker 3 · ~2 min 30 · *own this gap, don't oversell it — see issue #107*
 

@@ -6,9 +6,8 @@
 3 orateurs, même règle : n'importe qui dans l'équipe peut reprendre la main sur une question
 technique pointue à tout moment.
 
-> ⚠️ **Statut à la date de rédaction (29-30/09)** : à revérifier juste avant de présenter —
-> `#69`, `#96`, `#97`, `#99`, `#102`, `#105`. Ce document dépend aussi de la PR choisie pour la
-> démo live (à décider en équipe, voir en bas de ce fichier).
+> ⚠️ Ce document dépend de la PR choisie pour la démo live (à décider en équipe, voir en bas de ce
+> fichier).
 
 ---
 
@@ -73,15 +72,16 @@ serveur qui tourne plutôt que de se fier au seul badge CI vert. »
 pas seulement l'API isolée. Ça a un objectif concret : rattraper en CI un problème qui, sinon,
 n'apparaîtrait qu'au moment d'une démo en direct.
 
-Il y a une limite qu'on assume : la CI vérifie que l'API répond, pas encore que le frontend est
-réellement servi par l'image — c'est exactement le point encore ouvert dont on parlait en
-première partie. »
+C'était d'ailleurs un vrai problème trouvé en testant la stack réelle : l'image Docker démarrait
+avec un `src/static` vide, le build du frontend n'était pas intégré au Dockerfile. Corrigé en
+ajoutant une étape de build multi-stage qui compile le frontend Vite avant de construire l'image
+runtime. »
 
 ### 4. Stratégie de tests / QA — Orateur 3 (~3 min)
 
 > 📄 Support : slide 5
 
-« 381 tests automatisés entre le backend et le frontend. Mais les deux bugs les plus sérieux du
+« 525 tests automatisés entre le backend et le frontend. Mais les deux bugs les plus sérieux du
 projet n'ont pas été trouvés par ces tests-là — ils ont été trouvés en testant la vraie
 infrastructure : le schéma de base vide dans l'image Docker, et le jeton JWT d'un compte supprimé
 qui restait accepté. Aucun test unitaire mocké n'aurait vu ça, parce que le mock, par construction,
@@ -91,9 +91,11 @@ La leçon qu'on en tire concrètement : avant de dire "tous les tests sont verts
 vérifie aussi à la main contre la vraie infrastructure — vrai Docker, vrais webhooks — pas
 uniquement contre des mocks.
 
-Un gap qu'on assume aussi : le sujet distingue explicitement, dans sa Definition of Done, un
-niveau de couverture de tests requis du quality gate général. Chez nous, la couverture est
-mesurée à chaque run, mais aucun seuil n'est imposé pour merger — on ne l'a pas mis en place. »
+Une nuance qu'on assume aussi : côté backend, un seuil de 80 % est configuré dans Jest et appliqué
+par la CI à chaque run — actuellement autour de 91-97 % selon les fichiers, large marge. Mais il
+n'y a pas de branch protection GitHub sur `main` : rien n'empêche techniquement un merge si ce
+check est rouge, et le frontend n'a pas de seuil équivalent. Ça repose sur la discipline de revue,
+pas sur une protection automatique. »
 
 ### 5. Process de travail — Orateur 2 (~2 min)
 
@@ -133,10 +135,10 @@ priorité avaient un contraste de 3.19:1 et 3.09:1 entre le texte blanc et le fo
 seuil WCAG AA pour du texte de cette taille est de 4.5:1. Corrigé aujourd'hui même en assombrissant
 la même teinte, sans changer le sens ni le comportement.
 
-Ce qu'on n'a pas corrigé, et qu'on assume : le drag & drop n'a aucune alternative clavier —
-déplacer une carte entre colonnes demande obligatoirement une souris ou un écran tactile. C'est une
-vraie non-conformité, ça demanderait de repenser l'interaction, pas un correctif de dernière
-minute, et on préfère le dire plutôt que de laisser croire que c'est réglé. »
+Autre point trouvé puis corrigé : le drag & drop n'avait aucune alternative clavier — déplacer une
+carte entre colonnes demandait obligatoirement une souris ou un écran tactile. On a ajouté des
+boutons ◀/▶ sur chaque carte, avec un libellé explicite annonçant la colonne de destination,
+réutilisant la même logique métier que le drag & drop. »
 
 ### 7. Démo live : une fonctionnalité complète, tout le process — Orateur 1 (~8 min)
 
@@ -179,14 +181,14 @@ reprendre la main sur un point technique précis. »
 | Vous êtes conformes ? | Non, et on ne le prétend pas — audit partiel (scan automatisé + revue manuelle ciblée), pas les 106 critères sur un échantillon représentatif de pages (méthodologie RGAA complète) |
 | Pourquoi pas un audit complet ? | Reçu en cours de Sprint 3, temps réaliste pour comprendre le référentiel + un audit ciblé + un correctif, pas pour une conformité totale sur 3 sprints |
 | Un exemple concret de ce que vous avez trouvé ? | Contraste insuffisant sur 2 badges de priorité (3.19:1 et 3.09:1 vs. 4.5:1 requis), corrigé le jour même — issue `#107` |
-| Et ce qui reste non conforme ? | Le drag & drop n'a aucune alternative clavier — assumé, pas caché, nécessiterait une réécriture de l'interaction |
+| Et ce qui reste non conforme ? | Audit partiel, pas une conformité complète sur les 106 critères — mais le drag & drop a désormais une alternative clavier (boutons ◀/▶ avec libellé explicite) |
 | Un outil suffit pour être conforme RGAA ? | Non — même l'outil officiel (Ara, DINUM) n'est pas automatique, il demande un jugement d'expert sur un échantillon de pages |
 
 ## Q&A à anticiper — points relevés en recroisant le sujet du projet
 
 | Question probable | Réponse |
 |---|---|
-| Quel est votre seuil de couverture de tests ? | Aucun seuil imposé pour merger — la couverture est mesurée à chaque run mais pas gatée. Gap assumé face au sujet, qui la distingue explicitement du quality gate général |
+| Quel est votre seuil de couverture de tests ? | 80 % côté backend, appliqué par Jest/CI à chaque run (actuellement 91-97 %). Pas de seuil frontend équivalent, et pas de branch protection GitHub sur `main` pour bloquer un merge si le check est rouge — enforcement par discipline de revue, pas automatique |
 | L'écran d'accueil personnalisé est fait ? | À moitié : la liste des projets, oui ; la vue agrégée des tâches assignées tous projets confondus, non — l'issue avait été fermée par erreur comme complète, corrigé dans ce bilan |
 | Vous avez bien un flux événementiel démontrable ? | Oui, en production : `TaskCreated` → EventBus → notifieur multi-canaux, vérifié avec de vrais Discord/Telegram. `#69` est une extension au-delà de cette exigence de base, pas la brique elle-même |
 | L'image Docker est publiée sur un registre ? | Pas encore — en cours (`#73`), reclassé Must Have suite à la relecture du sujet, initialement mal classé en Should Have |
