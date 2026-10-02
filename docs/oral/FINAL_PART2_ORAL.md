@@ -49,8 +49,7 @@ que de laisser la dépendance implicite.
 
 Ce qui se voit vraiment dans l'historique, c'est la méthode contrat-d'abord : sur chaque brique
 majeure — persistance utilisateur, persistance Kanban, canaux de notification — le commit qui pose
-l'interface JSDoc pure précède systématiquement celui qui l'implémente. [Montrer un exemple
-concret sur 2-3 PR.] »
+l'interface JSDoc pure précède systématiquement celui qui l'implémente.  »
 
 ### 2. Revue de code — Orateur 2 (~3 min)
 
