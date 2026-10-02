@@ -30,9 +30,8 @@ technique pointue à tout moment.
 | 12:00–14:00 | Process de travail | 2 |
 | 14:00–16:30 | Gestion du handicap : RGAA | 3 |
 | 16:30–24:30 | Démo live : une fonctionnalité complète, tout le process | 1 |
-| 24:30–25:10 | Ce qu'il reste, honnêtement | 1 |
-| 25:10–25:40 | Transition questions | 1 |
-| 25:40–30:40 | Feedback du coach | — |
+| 24:30–25:00 | Transition questions | 1 |
+| 25:00–30:00 | Feedback du coach | — |
 
 ---
 
@@ -157,6 +156,8 @@ arrive bien sur Discord et Telegram. »
 
 ### 8. Transition — Orateur 1 (~20 s)
 
+> 📄 Support : slide 11
+
 « Voilà pour notre bilan. On est prêts pour vos questions, et n'importe qui dans l'équipe peut
 reprendre la main sur un point technique précis. »
 
@@ -168,7 +169,7 @@ reprendre la main sur un point technique précis. »
   demandée par le jury, pas seulement celle choisie pour la démo.
 - **PR choisie pour la démo live** : décider à l'avance laquelle est la plus complète et la plus
   propre à raconter (candidats sérieux : `#78`/`#66` CRUD Kanban, `#94`/`#65` suppression de compte
-  RGPD, `#105`/`#76` export RGPD une fois mergée).
+  RGPD, `#105`/`#76` export RGPD).
 - **Environnement de démo** : lancer la stack avant l'entrée en salle (`npm run local:start` si
   Docker est stable ce jour-là), vérifier que Grafana affiche des données récentes, vérifier que le
   webhook Discord/le bot Telegram utilisés sont toujours valides.

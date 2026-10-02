@@ -114,8 +114,8 @@ About to show one feature end-to-end, respecting the whole team process:
 
 **Issue → branch → commits (contract first) → PR → review (Definition of Done) → merge → demo**
 
-Feature chosen: *[pick the cleanest, most complete example available at defense time — e.g. the
-Kanban CRUD (#66/#78) or the GDPR account deletion (#65/#94)]*
+Feature chosen: *[pick the cleanest, most complete example available at defense time — candidates:
+Kanban CRUD (#66/#78), GDPR account deletion (#65/#94), GDPR data export (#76/#105)]*
 
 > Speaker 1 · ~1 min intro, then live · total ~8 min
 
